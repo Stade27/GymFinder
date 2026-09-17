@@ -17,10 +17,10 @@ const MapComponent = ({ brugerKoordinater, centre }) => {
   // En ref er en "fjernbetjening" til kortet, så vi kan flytte det bagefter.
   const kortRef = useRef(null);
 
-  // HVORFOR IKKE region={...}? Fordi region er et "styret" felt: kortet ville
-  // hoppe tilbage til start, hver gang skærmen tegnes igen - altså hver gang
-  // man trykker på et filter. I stedet sætter vi kun startpositionen én gang
-  // og flytter kortet blødt, når brugeren har indtastet en ny adresse.
+  // Brugte først region={...} men så hoppede kortet tilbage til start hver
+  // gang man trykkede på et filter (skærmen tegnes jo igen). Nu sætter vi
+  // kun startpositionen én gang og flytter kortet herfra når postnummeret
+  // ændrer sig.
   useEffect(() => {
     if (brugerKoordinater && kortRef.current) {
       kortRef.current.animateToRegion(

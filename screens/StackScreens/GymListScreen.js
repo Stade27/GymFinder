@@ -24,8 +24,8 @@ export default function GymListScreen({ navigation }) {
   const [aktiveFiltre, setAktiveFiltre] = useState([]);
   const [sortering, setSortering] = useState("pris");
 
-  // useEffect kører kode EFTER skærmen er tegnet - her henter vi data.
-  // Tom liste [] betyder: kør kun én gang, når skærmen vises første gang.
+  // useEffect kører efter skærmen er tegnet, så her henter vi data.
+  // Den tomme liste [] til sidst gør at den kun kører én gang.
   useEffect(() => {
     const hentData = async () => {
       setHenter(true);
@@ -37,8 +37,8 @@ export default function GymListScreen({ navigation }) {
     hentData();
   }, []);
 
-  // Slår et filter til eller fra. Vi laver en NY liste i stedet for at ændre
-  // den gamle - ellers opdager React ikke, at noget er ændret.
+  // Slår et filter til eller fra. Vigtigt at lave en ny liste og ikke bare
+  // ændre i den gamle, ellers opdager React ikke at der er sket noget.
   const skiftFilter = (filterId) => {
     setAktiveFiltre((forrige) =>
       forrige.includes(filterId)

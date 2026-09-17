@@ -4,9 +4,9 @@ import { beregnMaanedspris } from "./pricing";
 import { beregnAfstand } from "./distance";
 
 // Lægger pris og afstand på hvert center ud fra brugerens profil.
-// { ...center } laver en KOPI. Ellers ville vi skrive i vores egne data,
-// og tallene ville være forkerte næste gang brugeren ændrer sin profil.
-// map() laver en ny liste med lige så mange elementer som den gamle.
+// { ...center } laver en kopi. Hvis vi skrev direkte i center ville vi
+// ændre i vores egne data, og så passer tallene ikke næste gang brugeren
+// skifter profil. map() giver en ny liste med lige så mange elementer.
 export const berigCentre = (centre, status, brugerKoordinater) => {
   return centre.map((center) => ({
     ...center,
@@ -18,15 +18,15 @@ export const berigCentre = (centre, status, brugerKoordinater) => {
   }));
 };
 
-// Beholder kun centre, der har ALLE de valgte faciliteter.
-// aktiveFiltre er fx ["sauna", "doegnaabent"]. Tom liste = vis alle.
+// Beholder kun de centre der har alle de valgte faciliteter.
+// aktiveFiltre er fx ["sauna", "doegnaabent"]. Er den tom vises alle.
 export const filtrerCentre = (centre, aktiveFiltre) => {
   if (!aktiveFiltre || aktiveFiltre.length === 0) {
     return centre;
   }
 
-  // filter() beholder de centre, hvor testen er sand.
-  // every() kræver, at ALLE valgte filtre passer - ikke bare ét af dem.
+  // filter() beholder de centre hvor testen er sand.
+  // every() betyder at alle filtrene skal passe, ikke bare ét af dem.
   return centre.filter((center) =>
     aktiveFiltre.every((filterId) => center.faciliteter[filterId] === true)
   );

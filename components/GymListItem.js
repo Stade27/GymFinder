@@ -22,8 +22,8 @@ const GymListItem = ({ center, onPress }) => {
       <Text style={globalStyles.hjaelpetekst}>
         {formaterAfstand(center.beregnetAfstand)}
         {"  ·  "}
-        {/* a ? b : c betyder: hvis a er sand, vis b - ellers vis c.
-            Backticks `` gør det muligt at sætte en værdi ind med ${}. */}
+        {/* ? : er en kort if/else. Backticks gør at man kan sætte
+            variabler ind i teksten med ${} */}
         {center.binding === 0 ? "Ingen binding" : `${center.binding} mdr. binding`}
       </Text>
 

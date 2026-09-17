@@ -1,18 +1,18 @@
 // Beregner priser ud fra brugerens status.
 
-// Månedsprisen for ét center, alt efter om man er studerende, pensionist
-// eller almindelig. Kender centret ikke statussen, bruger vi standardprisen.
+// Månedsprisen for ét center alt efter om man er studerende, pensionist
+// eller almindelig. Kender centret ikke statussen bruger vi standardprisen.
 //
-// SENERE: prisen skal også afhænge af alder (flere centre har ungdomspris
-// under 30). Så skal profil.alder sendes med hertil, og "priser" i const.js
-// have en aldersgruppe mere. Det er kun denne funktion, der skal ændres -
-// listen, sorteringen og detaljeskærmen henter alle prisen herfra.
+// Todo: prisen skal også afhænge af alder, flere centre har ungdomspris
+// under 30. Så skal profil.alder med herind og priser i const.js skal have
+// en aldersgruppe mere. Det er kun den her funktion der skal ændres, resten
+// af appen henter prisen herfra.
 export const beregnMaanedspris = (center, status) => {
   if (!center || !center.priser) {
     return 0;
   }
-  // Firkantede parenteser slår op med en variabel: er status "studerende",
-  // henter vi priser.studerende. ?? betyder "brug det efter, hvis det før mangler".
+  // priser[status] slår op med en variabel, så er status "studerende" får vi
+  // priser.studerende. ?? falder tilbage til standard hvis der ikke er noget.
   return center.priser[status] ?? center.priser.standard;
 };
 

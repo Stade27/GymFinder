@@ -15,8 +15,8 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    // ProfileProvider yderst: så kan ALLE skærme læse brugerens profil.
-    // NavigationContainer skal pakke al navigation ind - der må kun være én.
+    // ProfileProvider ligger yderst så alle skærme kan komme til profilen.
+    // Der må kun være én NavigationContainer i hele appen.
     <ProfileProvider>
       <NavigationContainer>
         {/* Gælder alle faner. Stylingen ligger i styles/globalStyles.js. */}

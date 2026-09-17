@@ -6,8 +6,8 @@ import { CENTRE } from "./const";
 // Den er async, selvom data ligger lokalt. Et rigtigt datakald tager tid, og
 // skriver vi koden sådan allerede nu, slipper vi for at bygge om senere.
 // De 600 ms efterligner et netværkskald, så vi kan se spinneren virke.
-// async + await betyder, at funktionen kan VENTE på noget, der tager tid,
-// uden at appen fryser. Den, der kalder den, skal også bruge await.
+// async/await gør at funktionen kan vente på noget langsomt uden at appen
+// fryser. Husk at den der kalder den også skal bruge await.
 export const hentCentre = async () => {
   await new Promise((resolve) => setTimeout(resolve, 600));
   return CENTRE;
@@ -20,7 +20,8 @@ export const hentCenterVedId = async (id) => {
 };
 
 /*
- * SÅDAN SER DET UD MED RIGTIGE DATA (kan ikke køre - endpointet findes ikke)
+ * Sådan kommer det til at se ud når vi henter rigtige data.
+ * Udkommenteret fordi endpointet ikke findes endnu.
  *
  * export const hentCentre = async () => {
  *   try {

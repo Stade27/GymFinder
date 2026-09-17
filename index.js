@@ -1,7 +1,7 @@
 // Registrerer App som rodkomponent. Genereret af Expo.
 
-// Denne import SKAL stå allerøverst. Stack-navigatoren bruger den til
-// swipe-gestus, og den virker kun, hvis den indlæses først.
+// Den her import skal stå først, ellers virker swipe tilbage ikke i stacken.
+// Har prøvet at flytte den, det gik galt.
 import "react-native-gesture-handler";
 import { registerRootComponent } from "expo";
 

@@ -33,8 +33,9 @@ export const POSTNUMRE = {
   2800: { navn: "Kongens Lyngby", latitude: 55.7700, longitude: 12.5030 },
 };
 
-// Fitnesscentrene. Alle centre SKAL have de samme felter - kort, liste,
-// filtre og detaljeskærm regner med dem. Nyt center? Kopier et og ret det.
+// Fitnesscentrene. Alle centre skal have de samme felter, for kortet, listen,
+// filtrene og detaljeskærmen regner med dem. Skal der et nyt center ind, så
+// kopier et af de andre og ret værdierne.
 //
 //   priser      månedspris for hver status
 //   oprettelse  engangsgebyr (0 = gratis)
