@@ -1,105 +1,78 @@
 # GymFinder
 
-Prototype til faget Innovation og Teknologi (INNT), CBS – efterår 2026.
-Obligatorisk opgave 1: individuel programmeringsopgave.
+Min app til godkendelsesopgave 1 i Innovation og ny teknologi
 
-GymFinder samler priser og tilbud fra fitnesscentre ét sted. Brugeren
-indtaster adresse, alder og status (almindelig, studerende eller pensionist),
-og appen viser centre i nærheden med den pris, der gælder for netop ham –
-inklusive oprettelsesgebyr, binding og aktuelle kampagner.
+Ideen: man skriver sin adresse, alder og om man er studerende
+eller pensionist, og så får man en liste over fitnesscentre i nærheden med
+den pris der gælder for én selv. Oprettelsesgebyr og binding er regnet med,
+så man kan se hvad det egentlig koster det første år og ikke kun prisen pr.
+måned. Man kan sortere efter pris eller afstand og filtrere på fx sauna.
 
 ## Demovideo
 
-**[Link til demovideo indsættes her]**
+https://youtube.com/shorts/cIZ6SbBl6kg
 
-> Husk at udskifte linjen ovenfor, før du afleverer. Videoen kan ligge på
-> YouTube (sat til "ikke-listet") eller uploades direkte til dette repository.
+## Sådan kører man den
 
-## Sådan kører du appen
+    npm install
+    npx expo start
 
-Projektet er bygget med Expo.
+Scan QR-koden med Expo Go. Sidder man på CBS' netværk kan telefonen tit ikke
+finde computeren, så brug `npx expo start --tunnel` eller din egen hotspot.
 
-```
-npm install
-npx expo start
-```
+Hvis Expo klager over versioner:
 
-Scan QR-koden med Expo Go-appen på din telefon. Er du på eduroam eller et
-andet netværk med restriktioner, brug `npx expo start --tunnel` i stedet.
+    npx expo install --fix
 
-Skulle versionerne drille, kan de rettes automatisk med:
+## Opgavekravene
 
-```
-npx expo install --fix
-```
-
-## Opfyldelse af opgavekravene
-
-| Krav | Hvor det er opfyldt |
+| Krav | Hvor |
 | --- | --- |
-| Minimum 3 views | `View`-komponenter bruges på alle skærme, bl.a. `ProfileScreen.js`, `GymListScreen.js` og `GymDetailsScreen.js` |
-| Minimum 2 knapper, hvor den ene har en funktion | `ProfileScreen.js`: "Find centre i nærheden" validerer postnummeret, slår koordinater op og navigerer til en anden fane. "Ryd felter" nulstiller profilen. Begge bygger på `components/ButtonComponent.js` |
-| Minimum 3 screens | `ProfileScreen`, `GymListScreen`, `GymDetailsScreen` og `AboutScreen` – sat op med bottom tabs og en stack navigator i `App.js` og `components/StackComponent.js` |
-| Minimum 1 liste | `FlatList` over fitnesscentre i `GymListScreen.js`. Derudover `map()` over filtre, statusvalg og faciliteter |
-| Styling i en separat fil | `styles/globalStyles.js` – al styling og alle farver i appen |
-| README med link til demovideo | Denne fil |
+| Min. 3 views | Alle skærmene bruger `View`, fx `ProfileScreen.js`, `GymListScreen.js` og `GymDetailsScreen.js` |
+| Min. 2 knapper, én med funktion | `ProfileScreen.js` har to knapper. "Find centre i nærheden" tjekker postnummeret, finder koordinater og navigerer videre til listen. "Ryd felter" nulstiller. Begge er lavet med `components/ButtonComponent.js` |
+| Min. 3 screens | Fire i alt: `ProfileScreen`, `GymListScreen`, `GymDetailsScreen` og `AboutScreen`. Tabs i `App.js` og en stack i `components/StackComponent.js` |
+| Min. 1 liste | `FlatList` med centrene i `GymListScreen.js`. Filtre og statusvalg er lavet med `map()` |
+| Styling i separat fil | `styles/globalStyles.js`. Der er ikke styling andre steder |
+| README med demovideo | Denne fil |
 
-## Mappestruktur
+## Filerne
 
-```
-App.js                      Navigation: tabs med en stack i midterste fane
-index.js                    Expo-startpunkt
+    App.js                      Tabs, med en stack i den midterste
+    index.js                    Expo starter her
 
-components/
-  ButtonComponent.js        Genbrugelig knap (title + onPress som props)
-  ChipComponent.js          Lille knap der kan være slået til/fra
-  GymListItem.js            Ét center, som det ser ud i listen
-  MapComponent.js           Kort med markører
-  StackComponent.js         Stack navigator til liste -> detaljer
+    components/
+      ButtonComponent.js        Knap
+      ChipComponent.js          Lille knap man kan slå til og fra
+      GymListItem.js            Et center i listen
+      MapComponent.js           Kortet
+      StackComponent.js         Stack fra liste til detaljer
 
-screens/
-  ProfileScreen.js          Indtastning af adresse, alder og status
-  AboutScreen.js            Om appen og om datagrundlaget
-  StackScreens/
-    GymListScreen.js        Kort, filtre, sortering og liste
-    GymDetailsScreen.js     Fuld pris og faciliteter for ét center
+    screens/
+      ProfileScreen.js          Adresse, alder og status
+      AboutScreen.js            Om appen
+      StackScreens/
+        GymListScreen.js        Kort, filtre, sortering og liste
+        GymDetailsScreen.js     Detaljer og fuld pris for et center
 
-context/
-  ProfileContext.js         Deler brugerens profil mellem faner
+    context/
+      ProfileContext.js         Profilen, så alle skærme kan læse den
 
-data/
-  const.js                  Centre, postnumre, filtre
-  gymService.js             Leverer data til skærmene
+    data/
+      const.js                  Centre, postnumre, filtre
+      gymService.js             Henter data (lige nu fra const.js)
 
-utils/
-  pricing.js                Prisberegning ud fra brugerens status
-  distance.js               Afstand mellem to punkter
-  geokodning.js             Postnummer -> koordinater
-  filtrering.js             Filtrering og sortering af listen
-
-styles/
-  globalStyles.js           Al styling
-```
+    utils/
+      pricing.js                Prisberegning
+      distance.js               Afstand mellem to punkter
+      geokodning.js             Postnummer til koordinater
+      filtrering.js             Filtrering og sortering
 
 ## Om dataene
 
-Priserne i `data/const.js` er indsamlet manuelt og er vejledende. De hentes
-ikke automatisk fra centrenes hjemmesider, og de kan være ændret, siden de
-blev noteret.
+Priserne er skrevet ind i hånden i `data/const.js` og er ikke nødvendigvis
+opdaterede. Appen henter ikke noget fra centrenes hjemmesider endnu. Det var
+vigtigere at få selve appen til at virke først, så vi kunne vise den til
+brugere og finde ud af om ideen overhovedet holder.
 
-Det er et bevidst valg i denne version. Formålet med en MVP er at teste, om
-brugerne vil have produktet – ikke at bygge den tekniske dataindsamling,
-før man ved det. Al datahåndtering er samlet i `data/gymService.js`, så
-netop den del kan skiftes ud uden at røre resten af appen.
-
-## Videre arbejde
-
-Appen afleveres i etaper hen over semestret. Følgende er bevidst holdt ude
-af denne version og er markeret med kommentarer i koden der, hvor det skal
-sættes ind:
-
-- Rigtig dataindsamling af priser (`data/gymService.js`)
-- Geokodning af fulde adresser via DAWA i stedet for opslag på postnummer
-  (`utils/geokodning.js`)
-- Gemt profil, så oplysningerne overlever at appen lukkes
-  (`context/ProfileContext.js`)
+Alt der har med data at gøre går gennem `data/gymService.js`, så når vi
+skal have rigtige data ind er det kun den fil der skal skrives om.
